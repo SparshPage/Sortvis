@@ -14,8 +14,9 @@ var b;
 for(let i = 0; i< width; i++){
     sticks[i] = Math.floor(Math.random()*(max-min)+min)
 }
-function showStick(x,h){
+function showStick(x,h,c){
     ctx.beginPath();
+    ctx.strokeStyle = c;
     ctx.moveTo(x,width);
     ctx.lineTo(x, h);
     ctx.stroke();
@@ -38,17 +39,19 @@ function draw(){
         for(b = a-1;b>=0 && sticks[b]> value; b--){
             sticks[b+1] = sticks[b];
         }
+        showStick(a, sticks[a], 'red');
         //console.log(sticks)
         sticks[b+1] = value;
     }
-
+    
     a++;
 
 
 
     //draw some shit
     for(let i = 0; i< width; i++){
-        showStick(i,sticks[i]);
+        showStick(a, sticks[a], 'red');
+        showStick(i,sticks[i],'green');
     }
     
 }
@@ -57,7 +60,7 @@ console.log(sticks);
 function loop(){
     setTimeout(()=> {
         requestAnimationFrame(loop);
-    }, 1000/60);
+    }, 1000/30);
 
     draw();
 }
